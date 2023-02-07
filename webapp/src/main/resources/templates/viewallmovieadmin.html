@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script>
+  <title>View All Movie</title>
+<!--  <style>-->
+<!--    table {-->
+<!--    font-family: arial, sans-serif;-->
+<!--    border-collapse: collapse;-->
+<!--    width: 100%;-->
+<!--    }-->
+
+<!--    td, th {-->
+<!--    border: 1px solid #dddddd;-->
+<!--    text-align: left;-->
+<!--    padding: 8px;-->
+<!--    }-->
+
+<!--    tr:nth-child(even) {-->
+<!--    background-color: #dddddd;-->
+<!--    }-->
+<!--    </style>-->
+</head>
+<body>
+<center>
+  <h1>Movie Info</h1>
+
+  <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+    <thead>
+    <tr>
+      <th>Movie Id</th>
+      <th>Title</th>
+      <th>Genre</th>
+      <th>Description</th>
+      <th>Poster</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="movie : ${dataList}">
+      <td  th:text="${movie.movieId}"></td>
+      <td  th:text="${movie.title}"></td>
+      <td  th:text="${#strings.replace(movie.genres, '|', ',')}"></td>
+      <td  th:text="${movie.description}"></td>
+      <td  >
+        <img th:src="'data:image/jpeg;base64,' + ${#strings.encodeBase64(movie.poster)}"/>
+
+        <!--        <img th:src="'data:image/jpeg;base64,' + ${movie.posterImageString}" />-->
+      </td>
+      <td th:text="'posterImageString: ' + ${movie.posterImageString}"></td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="row">
+    <div class="col-md-6">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+<!--            <li class="page-item active"><a class="page-link" href="#">1</a></li>-->
+<!--            <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+<!--            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+            <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <script>
+  $(document).ready(function() {
+    // Set the number of items to display per page
+    var itemsPerPage = 20;
+
+    // Get the number of items in the table
+    var totalItems = $('tbody tr').length;
+
+    // Calculate the number of pages needed
+    var totalPages = Math.ceil(totalItems / itemsPerPage);
+
+    // Create the pagination controls
+    for (var i = 1; i <= totalPages; i++) {
+      $('.pagination').append('<li class="page-item"><a class="page-link" href="#">' + i + '</a></li>');
+    }
+
+    // Hide all the items in the table
+    $('tbody tr').hide();
+
+    // Show only the items for the first page
+    $('tbody tr').slice(0, itemsPerPage).show();
+
+    // Handle the click event for the pagination controls
+    $('.pagination a').click(function(e) {
+      e.preventDefault();
+      var pageNum = $(this).text();
+      var startItem = (pageNum - 1) * itemsPerPage;
+      var endItem = startItem + itemsPerPage;
+      $('tbody tr').hide().slice(startItem, endItem).show();
+      $('.pagination a').removeClass('active');
+      $(this).addClass('active');
+    });
+  });
+</script>
+
+  <br><br>
+  <a href="/homeadmin">Go Back</a>
+</center>
+
+<script>
+  $(document).ready(function () {
+  $('#dtBasicExample').DataTable();
+  $('.dataTables_length').addClass('bs-select');
+});
+</script>
+</body>
+</html>
