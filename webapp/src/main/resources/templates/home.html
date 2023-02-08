@@ -10,22 +10,26 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script>
 <style>
     :root {
-  --gradient: linear-gradient(to left top, #DD2476 10%, #FF512F 90%) !important;
+  --gradient: linear-gradient(112.1deg, rgb(32, 38, 57) 11.4%, rgb(63, 76, 119) 70.2%);
 }
 
 body {
-  background: #111 !important;
+          background-image: url('img/home.jpg');
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: cover;
+
 }
 
 .card {
-  background: #222;
-  border: 1px solid #dd2476;
+  background: #fff;
+  border: 1px solid #202639;
   color: rgba(250, 250, 250, 0.8);
   margin-bottom: 2rem;
 }
 
 .btn {
-  border: 5px solid;
+  border: 3px solid;
   border-image-slice: 1;
   background: var(--gradient) !important;
   -webkit-background-clip: text !important;
@@ -39,13 +43,13 @@ body {
       background: var(--gradient) !important;
   -webkit-background-clip: none !important;
   -webkit-text-fill-color: #fff !important;
-  border: 5px solid #fff !important;
+  border: 3px solid #fff !important;
   box-shadow: #222 1px 0 10px;
   text-decoration: underline;
 }
 
 #vote{
-  border: 5px solid;
+  border: 3px solid;
   border-image-slice: 1;
   background: var(--gradient) !important;
   -webkit-background-clip: text !important;
@@ -84,6 +88,9 @@ body {
             <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item">
                     <a class="nav-link mx-2" th:text="${session.username}"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link mx-2" href="/viewfavs">Favourites</a>
                 </li>
                 <li class="nav-item ms-3">
                     <a class="btn btn-black btn-rounded" href="/logout">Logout</a>
@@ -151,7 +158,7 @@ body {
                         <div class="card-body">
                             <h5 class="card-title" th:text="${movie.title}"></h5>
                             <a href="/movieinfo?id=${movie.movieId}" class="btn mr-2"><i class="fas fa-link"></i>More Detail</a>
-                            <a href="#" class="mr-2" id="vote"><i class="fab fa-github">${vote}</i></a>
+                            <a href="#" class="btn mr-2" id="vote"><i class="fab fa-github">${vote}</i></a>
                         </div>
                     </div>`;
           movieMain.appendChild(movieCard);
