@@ -127,12 +127,14 @@
     </div>
   </section>
 <script>
-    var password = document.getElementById("password")
-  , confirm_password = document.getElementById("password2");
+    var password = document.getElementById("password") // call input id password
+  , confirm_password = document.getElementById("password2"); // call input id password2
 
+<!--Function to Validate the password-->
     function validatePassword(){
+    //check if value is not the same
       if(password.value != confirm_password.value) {
-        confirm_password.setCustomValidity("Passwords Don't Match");
+        confirm_password.setCustomValidity("Passwords Don't Match"); //message if true
       } else {
         confirm_password.setCustomValidity('');
       }

@@ -11,6 +11,8 @@ public class RequiredResponse {
 
     private User user;
 
+    private Favourite favourite;
+
     private link link;
 
     private Movie movie;

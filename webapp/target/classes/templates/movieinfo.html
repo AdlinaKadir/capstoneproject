@@ -198,7 +198,6 @@ $(document).ready(function() {
 <!--    </div>-->
 <!--</div>-->
 <br><br>
-
 <h3 style="color=white">Recommended Movie</h3>
 <div class="container mx-auto mt-4">
     <div id="movieMainrecommend" class="row">
@@ -222,6 +221,7 @@ $(document).ready(function() {
 <script th:inline="javascript">
   document.addEventListener("DOMContentLoaded", function() {
     var movie = /*[[${dataList}]]*/ [];
+    var userId = [[${session.userid}]];
     var poster;
     const IMG_PATH = 'https://image.tmdb.org/t/p/w300';
     const movieMain = document.getElementById('movieMain');
@@ -263,10 +263,20 @@ $(document).ready(function() {
                         <p class="card-text">${overview}</p>
                         <p class="card-text">${movie.genres}</p>
                         <br>
-                        <div class="rating">
-                         <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label> <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label> <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label> <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
-                        </div>
-                        <a href="/fav?id=${movie.movieId}" class="btn mr-2"><i class="fas fa-link"></i>Add to Favourite</a>
+                        <form id="rating-form" action="/rate" method="post">
+                            <div class="rating" >
+                                <input type="text" name="movieId" value="${movie.movieId}">
+                                <input type="text" name="userId" value="${userId}">
+                                <input type="text" name="timestamp" value="null">
+                                <input type="radio" name="movierating" value="5" id="5"><label for="5">☆</label>
+                                <input type="radio" name="movierating" value="4" id="4"><label for="4">☆</label>
+                                <input type="radio" name="movierating" value="3" id="3"><label for="3">☆</label>
+                                <input type="radio" name="movierating" value="2" id="2"><label for="2">☆</label>
+                                <input type="radio" name="movierating" value="1" id="1"><label for="1">☆</label>
+                            </div>
+                            <button type="submit" class="btn mr-2"><i class="fas fa-link"></i>Rate</button>
+                        </form>
+                        <a href="/fav?id=${movie.movieId}&userId=${userId}" class="btn mr-2"><i class="fas fa-link"></i>Add to Favourite</a>
                     </div>
                 </div>
                 <!-- Carousel start -->
