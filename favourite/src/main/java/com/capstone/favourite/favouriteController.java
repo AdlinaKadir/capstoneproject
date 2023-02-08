@@ -1,9 +1,9 @@
 package com.capstone.favourite;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class favouriteController {
@@ -14,5 +14,17 @@ public class favouriteController {
     public Favourite addFav(@RequestBody Favourite favourite)
     {
         return service.saveFav(favourite);
+    }
+
+    @GetMapping("/favs/{id}")
+    public List<Favourite> findallFavouritebyId(@PathVariable int id)
+    {
+        return service.getFavbyId(id);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteFav(@PathVariable int id)
+    {
+        return service.deleteFav(id);
     }
 }
